@@ -1,0 +1,50 @@
+<script src="e3d.js"></script>
+<style>
+	canvas {
+		width:50vw;
+		height:35vh;
+	}
+</style>
+<canvas id="view"></canvas>
+<script>
+	
+	// Get the screen to project to
+	const c = document.getElementById("view")
+	
+	// The scene
+	const s = Scene(c)
+	
+	// Sun image
+	let texture_sun = E3D.createImage("sun.png")
+
+	// Set canvas color
+	s.skycolor("#3388ff")
+	
+	// Create the sun
+	let sun = s.addElement(E3D.render.IMAGE,{
+		x: 100,
+		y: -53,
+		width: 80,
+		height: 80,
+		image: texture_sun
+	})
+
+	// Create some text
+	let test_text = s.addElement(E3D.render.TEXT,{
+		x: 100,
+		y: 0,
+		size: 10,
+		text: "TEST"
+	})
+	
+	// Game loop
+	let loop = requestAnimationFrame(function main() {
+		if(s.game_active) {
+			sun.y += 0.1
+			if(sun.y > 190) sun.y = -53
+			s.execute()
+		}
+		requestAnimationFrame(main)
+	})
+	
+</script>
